@@ -6,16 +6,16 @@
 #define PI 3.14159
 
 //line 1
-int a1=300;
-int b1=100;
+int a1=400;
+int b1=200;
 
 // line 2
-int c1 = 200;
-int d1 = 300;
+int c1 = 300;
+int d1 = 400;
 
 // line3
-int e1 = 400;
-int f1 = 300;
+int e1 = 500;
+int f1 = 400;
 
 double result[3][3];
 
@@ -84,7 +84,7 @@ void rotation2D(){
 
 int main(){
 
-  int wnd=initwindow(700,700,"Rotation");
+  initwindow(700,700,"Rotation");
 
   line(a1,b1,c1,d1);
   line(c1,d1,e1,f1);
@@ -94,6 +94,6 @@ int main(){
   rotation2D();
 
   getch();
-  closegraph(wnd);
+  closegraph();
   return 0;
 }
