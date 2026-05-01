@@ -12,11 +12,6 @@ void bubbleSort(int a[],int n){
                 a[i+1]=temp;
             }  
         }
-        printf("\n%d pass:",pass);
-        for (int k = 0; k < n; k++){
-            printf("%d ",a[k]);
-        }
-        
     }
 
     printf("\nThe sorted array is:\n");
