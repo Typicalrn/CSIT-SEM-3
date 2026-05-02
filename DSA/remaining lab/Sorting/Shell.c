@@ -1,34 +1,32 @@
 //Implemetnation of shell sort in C
 #include <stdio.h>
-
-// Shell sort
-void shellSort(int array[], int n) {
-  // Rearrange elements at each n/2, n/4, n/8, ... intervals
-  for (int interval = n / 2; interval > 0; interval /= 2) {
-    for (int i = interval; i < n; i += 1) {
-      int temp = array[i];
-      int j;
-      for (j = i; j >= interval && array[j - interval] > temp; j -= interval) {
-        array[j] = array[j - interval];
+ 
+int main() {
+  int arr[10]={-1},n,flag=1,gap,temp;
+  printf("Enter the no of elements: ");
+  scanf("%d", &n);
+  printf("Enter the elements: ");
+  for(int i=0;i<n;i++){
+    scanf("%d", &arr[i]);
+  }
+  // Shell Sort
+  gap=n;
+  while (flag==1||gap>1) {
+    flag=0;
+    gap=(gap+1)/2;
+    for(int i=0;i<n-gap;i++){
+      if(arr[i]>arr[i+gap]){
+        temp=arr[i+gap];
+        arr[i+gap]=arr[i];
+        arr[i]=temp;
+        flag=0;
       }
-      array[j] = temp;
     }
   }
-}
-
-// Print an array
-void printArray(int array[], int size) {
-  for (int i = 0; i < size; ++i) {
-    printf("%d  ", array[i]);
+  printf("Sorted array: ");
+  for(int i=0;i<n;i++){
+    printf("%d ", arr[i]);
   }
   printf("\n");
-}
-
-// Driver code
-int main() {
-  int data[] = {9, 8, 3, 7, 5, 6, 4, 1};
-  int size = sizeof(data) / sizeof(data[0]);
-  shellSort(data, size);
-  printf("Sorted array: \n");
-  printArray(data, size);
+  return 0;
 }

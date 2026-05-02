@@ -1,4 +1,4 @@
-//singly linkned list implementation in C, insertion and deletion at beginning
+//singly linkned list implementation in C, insertion and deletion at beg
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -16,14 +16,14 @@ void display(struct Node *head){
     printf("\n");
 }
 
-void insertAtBeginning(struct Node **head, int newData){
+void insertAtBeg(struct Node **head, int newData){
     struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = newData;
     newNode->next = *head;
     *head = newNode;
 }
 
-void deleteAtBeginning(struct Node **head){
+void deleteAtBeg(struct Node **head){
     if (*head == NULL){
         printf("List is empty, cannot delete.\n");
         return;
@@ -52,9 +52,9 @@ int main(){
     n3->next=n4;
     n4->next = NULL;
     display(Head);
-    insertAtBeginning(&Head, 5);
+    insertAtBeg(&Head, 5);
     display(Head);
-    deleteAtBeginning(&Head);
+    deleteAtBeg(&Head);
     display(Head);
     return 0;
 }

@@ -1,7 +1,7 @@
 //implementing double hashing in hashing
 #include <stdio.h>
 #define size 7
-int a[size];
+int a[size]={-1};
 
 void init(){
     for(int i = 0; i <  size; i++) {

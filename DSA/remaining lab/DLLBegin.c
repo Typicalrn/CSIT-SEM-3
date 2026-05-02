@@ -4,8 +4,7 @@
 
 struct Node{
     int data;
-    struct Node *prev;
-    struct Node *next;
+    struct Node *prev,*next;
 };
 
 void display(struct Node *head){
@@ -16,7 +15,7 @@ void display(struct Node *head){
     }
     printf("\n");
 }
-void insertAtBeginning(struct Node **head, int newData){
+void inBe(struct Node **head, int newData){
     struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = newData;
     newNode->prev = NULL;
@@ -27,7 +26,7 @@ void insertAtBeginning(struct Node **head, int newData){
     *head = newNode;
 }
 
-void deleteAtBeginning(struct Node **head){
+void deBE(struct Node **head){
     if (*head == NULL){
         printf("List is empty, cannot delete.\n");
         return;
@@ -64,9 +63,9 @@ int main(){
     n4->next = NULL;
 
     display(Head);
-    insertAtBeginning(&Head, 5);
+    inBe(&Head, 5);
     display(Head);
-    deleteAtBeginning(&Head);
+    deBE(&Head);
     display(Head);
     return 0;
 }
