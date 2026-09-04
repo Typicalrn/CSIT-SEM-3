@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define MAX 10
+#define M 10
 
 // Source function f(x, y) for Poisson equation
 float source(float x, float y) {
@@ -12,11 +12,8 @@ float source(float x, float y) {
 }
 
 int main() {
-    int n, i, j, iter;
-    float u[MAX][MAX], u_new;
-    float tol = 1e-4, maxErr;
-    int maxIter = 1000;
-    float h;
+    int n, i, j, iter,maxIter = 1000;
+    float u[M][M], u_new,tol = 1e-4, maxErr,h;
 
     printf("Solves: d2u/dx2 + d2u/dy2 = f(x,y),  f(x,y) = -2\n\n");
     printf("Enter number of interior grid points per side (e.g. 3): ");

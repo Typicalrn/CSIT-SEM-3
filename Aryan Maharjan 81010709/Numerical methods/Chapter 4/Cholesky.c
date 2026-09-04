@@ -7,9 +7,7 @@
 
 int main() {
     int n, i, j, k;
-    float a[MAX][MAX], L[MAX][MAX];
-    float y[MAX], x[MAX], sum;
-    float b[MAX];
+    float a[MAX][MAX], L[MAX][MAX], y[MAX], x[MAX], sum, b[MAX];
 
     printf("(Matrix must be symmetric and positive definite)\n\n");
     printf("Enter size of matrix: ");

@@ -4,11 +4,10 @@
 #define MAX 20
 
 int main() {
-    float x[MAX], y[MAX];
+    float x[MAX], y[MAX],h, xp;
     int n, i;
-    float h, xp;
 
-    printf("===== Derivative by Backward Difference Formula =====\n");
+    printf(" Derivative by Backward Difference Formula\n");
     printf("f'(x) = [3f(x) - 4f(x-h) + f(x-2h)] / (2h)  [O(h^2)]\n\n");
 
     printf("Enter number of data points: ");
@@ -40,11 +39,11 @@ int main() {
 
     float dy;
     if (pos - 2 >= 0) {
-        dy = (3*y[pos] - 4*y[pos-1] + y[pos-2]) / (2 * h);
         printf("\nUsing second-order backward difference:\n");
+        dy = (3*y[pos] - 4*y[pos-1] + y[pos-2]) / (2 * h);
     } else if (pos - 1 >= 0) {
-        dy = (y[pos] - y[pos-1]) / h;
         printf("\nUsing first-order backward difference:\n");
+        dy = (y[pos] - y[pos-1]) / h;
     } else {
         printf("Error: Not enough backward points.\n");
         return 1;

@@ -2,13 +2,11 @@
 // A = L * U where U has 1s on diagonal
 #include <stdio.h>
 
-#define MAX 10
+#define M 10
 
 int main() {
     int n, i, j, k;
-    float a[MAX][MAX], L[MAX][MAX], U[MAX][MAX];
-    float y[MAX], x[MAX], sum;
-    float b[MAX];
+    float a[M][M], L[M][M], U[M][M], y[M], x[M], sum, b[M];
 
     printf("Enter number of equations: ");
     scanf("%d", &n);
@@ -77,8 +75,8 @@ int main() {
     // Back substitution: U*x = y
     for (i = n - 1; i >= 0; i--) {
         x[i] = y[i];
-        for (j = i + 1; j < n; j++)
-            x[i] -= U[i][j] * x[j];
+        for (j = i + 1; j < n; j++){
+            x[i] -= U[i][j] * x[j];}
         // U[i][i] = 1, so no division needed
     }
 

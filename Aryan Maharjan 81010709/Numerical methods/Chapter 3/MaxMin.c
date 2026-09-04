@@ -4,9 +4,8 @@
 #define MAX 20
 
 int main() {
-    float x[MAX], y[MAX];
+    float x[MAX], y[MAX],h;
     int n, i;
-    float h;
 
     printf("Enter number of data points: ");
     scanf("%d", &n);

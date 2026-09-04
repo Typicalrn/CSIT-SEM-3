@@ -4,11 +4,9 @@
 #define MAX 20
 
 int main() {
-    float x[MAX], y[MAX];
+    float x[MAX], y[MAX],h, xp;
     int n, i;
-    float h, xp;
 
-    printf("===== Derivative by Central Difference Formula =====\n");
     printf("First  derivative: f'(x)  = [f(x+h) - f(x-h)] / (2h)\n");
     printf("Second derivative: f''(x) = [f(x+h) - 2f(x) + f(x-h)] / h^2\n\n");
 

@@ -9,19 +9,19 @@ typedef struct Node {
     struct Node *next;
 } Node;
 
-void addEdge(Node *adj[], int u, int v) {
+void addE(Node *adj[], int u, int v) {
     Node *n = malloc(sizeof(*n));
     n->v = v; n->next = adj[u]; adj[u] = n;
 }
 
-void printMatrix(int g[V][V]) {
+void pM(int g[V][V]) {
     puts("Adjacency Matrix:");
     for (int i = 0; i < V; i++, puts(""))
         for (int j = 0; j < V; j++)
             printf("%d ", g[i][j]);
 }
 
-void printList(Node *adj[]) {
+void pL(Node *adj[]) {
     puts("Adjacency List:");
     for (int i = 0; i < V; i++) {
         printf("%d: ", i);
@@ -30,17 +30,17 @@ void printList(Node *adj[]) {
     }
 }
 
-void dfs(Node *adj[], int v, int visited[]) {
-    visited[v] = 1;
+void dfs(Node *adj[], int v, int visit[]) {
+    visit[v] = 1;
     printf("%d ", v);
     for (Node *p = adj[v]; p; p = p->next)
-        if (!visited[p->v])
-            dfs(adj, p->v, visited);
+        if (!visit[p->v])
+            dfs(adj, p->v, visit);
 }
 
 void bfs(Node *adj[], int start) {
-    int visited[V] = {0}, q[V], front = 0, rear = 0;
-    visited[start] = 1;
+    int visit[V] = {0}, q[V], front = 0, rear = 0;
+    visit[start] = 1;
     q[rear++] = start;
 
     while (front < rear) {
@@ -48,8 +48,8 @@ void bfs(Node *adj[], int start) {
         printf("%d ", v);
 
         for (Node *p = adj[v]; p; p = p->next) {
-            if (!visited[p->v]) {
-                visited[p->v] = 1;
+            if (!visit[p->v]) {
+                visit[p->v] = 1;
                 q[rear++] = p->v;
             }
         }
@@ -58,21 +58,21 @@ void bfs(Node *adj[], int start) {
 
 int main() {
     int edges[E][2] = {{0,1},{0,4},{1,2},{2,3},{3,4}};
-    int mat[V][V] = {0}, visited[V] = {0};
+    int mat[V][V] = {0}, visit[V] = {0};
     Node *adj[V] = {0};
 
     for (int i = 0; i < E; i++) {
         int u = edges[i][0], v = edges[i][1];
         mat[u][v] = mat[v][u] = 1;
-        addEdge(adj, u, v);
-        addEdge(adj, v, u);
+        addE(adj, u, v);
+        addE(adj, v, u);
     }
 
-    printMatrix(mat);
-    printList(adj);
+    pM(mat);
+    pL(adj);
 
     printf("DFS: ");
-    dfs(adj, 0, visited);
+    dfs(adj, 0, visit);
     printf("\n");
 
     printf("BFS: ");

@@ -4,9 +4,7 @@
 // Example: dy/dx = x + y,  y(0) = 1
 #include <stdio.h>
 
-float f(float x, float y) {
-    return x + y;  // Change this to your equation
-}
+float f(float x, float y) {return x + y;}
 
 int main() {
     float x0, y0, h, xn, x, y;
@@ -17,18 +15,15 @@ int main() {
     printf("Enter step size h: ");     scanf("%f", &h);
     printf("Enter final x (xn): ");    scanf("%f", &xn);
 
-    x = x0;
-    y = y0;
+    x = x0;y = y0;
 
     printf("\n%-12s %-12s\n", "x", "y");
     printf("------------------------\n");
     printf("%-12.4f %-12.6f\n", x, y);
 
     while (x < xn - 1e-6) {
-        y = y + h * f(x, y);
-        x += h;
+        y = y + h * f(x, y);x += h;
         printf("%-12.4f %-12.6f\n", x, y);
     }
-
     return 0;
 }

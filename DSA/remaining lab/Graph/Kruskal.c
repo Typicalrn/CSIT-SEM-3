@@ -16,7 +16,7 @@ int find(int i) {
     return i;
 }
 
-void unionSet(int a, int b) {
+void uSet(int a, int b) {
     parent[find(a)] = find(b);
 }
 
@@ -40,7 +40,7 @@ void kruskal(Edge edges[]) {
         if (x != y) {
             printf("%d - %d : %d\n", edges[i].u, edges[i].v, edges[i].w);
             cost += edges[i].w;
-            unionSet(x, y);
+            uSet(x, y);
             count++;
         }
     }

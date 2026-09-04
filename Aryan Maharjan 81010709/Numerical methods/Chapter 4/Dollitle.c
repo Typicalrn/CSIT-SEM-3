@@ -6,20 +6,18 @@
 
 int main() {
     int n, i, j, k;
-    float a[MAX][MAX], L[MAX][MAX], U[MAX][MAX];
-    float y[MAX], x[MAX], sum;
+    float a[MAX][MAX], L[MAX][MAX], U[MAX][MAX], y[MAX], x[MAX], sum, b[MAX];
 
     printf("Enter number of equations: ");
     scanf("%d", &n);
 
     printf("Enter coefficient matrix A:\n");
-    for (i = 0; i < n; i++) {
+    for (i = 0; i < n; i++) { 
         printf("Row %d: ", i + 1);
         for (j = 0; j < n; j++)
             scanf("%f", &a[i][j]);
     }
 
-    float b[MAX];
     printf("Enter RHS vector b:\n");
     for (i = 0; i < n; i++) {
         printf("  b[%d]: ", i + 1);

@@ -2,107 +2,101 @@
 #include <stdlib.h>
 
 typedef struct Node {
-    int data, height;
-    struct Node *left, *right;
+    int data, ht;
+    struct Node *l, *r;
 } Node;
 
 int max(int a, int b) { return a > b ? a : b; }
-int height(Node *n) { return n ? n->height : 0; }
-
-Node* createNode(int key) {
+int ht(Node *n) { return n ? n->ht : 0; }
+Node* create(int k) {
     Node* n = (Node*)malloc(sizeof(Node));
-    n->data = key;
-    n->left = n->right = NULL;
-    n->height = 1;
+    n->data = k;n->l = n->r = NULL;n->ht = 1;
     return n;
 }
 
-Node* rightRotate(Node* y) {
-    Node* x = y->left, *T2 = x->right;
-    x->right = y; y->left = T2;
-    y->height = max(height(y->left), height(y->right)) + 1;
-    x->height = max(height(x->left), height(x->right)) + 1;
-    return x;
-}
+Node* rRo(Node* y) {
+    Node* x = y->l, *T2 = x->r;
+    x->r = y; y->l = T2;
+    y->ht = max(ht(y->l), ht(y->r)) + 1;
+    x->ht = max(ht(x->l), ht(x->r)) + 1;
+    return x;}
 
-Node* leftRotate(Node* x) {
-    Node* y = x->right, *T2 = y->left;
-    y->left = x; x->right = T2;
-    x->height = max(height(x->left), height(x->right)) + 1;
-    y->height = max(height(y->left), height(y->right)) + 1;
-    return y;
-}
+Node* lRo(Node* x) {
+    Node* y = x->r, *T2 = y->l;
+    y->l = x; x->r = T2;
+    x->ht = max(ht(x->l), ht(x->r)) + 1;
+    y->ht = max(ht(y->l), ht(y->r)) + 1;
+    return y;}
 
-int getBalance(Node* n) {
-    return n ? height(n->left) - height(n->right) : 0;
-}
+int gBal(Node* n) {return n ? ht(n->l) - ht(n->r) : 0;}
 
-Node* insert(Node* n, int k) {
-    if (!n) return createNode(k);
-    if (k < n->data) n->left = insert(n->left, k);
-    else if (k > n->data) n->right = insert(n->right, k);
+Node* in(Node* n, int k) {
+    if (!n) return create(k);
+    if (k < n->data) n->l = in(n->l, k);
+    else if (k > n->data) n->r = in(n->r, k);
     else return n;
 
-    n->height = 1 + max(height(n->left), height(n->right));
-    int b = getBalance(n);
-
-    if (b > 1 && k < n->left->data)  return rightRotate(n);
-    if (b < -1 && k > n->right->data) return leftRotate(n);
-    if (b > 1 && k > n->left->data)  { n->left = leftRotate(n->left); return rightRotate(n); }
-    if (b < -1 && k < n->right->data) { n->right = rightRotate(n->right); return leftRotate(n); }
+    n->ht = 1 + max(ht(n->l), ht(n->r));int b = gBal(n);
+    if (b > 1 && k < n->l->data)        return rRo(n);
+    if (b < -1 && k > n->r->data)       return lRo(n);
+    if (b > 1 && k > n->l->data)        { n->l = lRo(n->l); return rRo(n); }
+    if (b < -1 && k < n->r->data)       { n->r = rRo(n->r); return lRo(n); }
     return n;
 }
 
-// simplified delete: no 2‑child case (no minValueNode)
-Node* deleteNode(Node* n, int k) {
+Node* min(Node* n) {while (n && n->l){ n = n->l; }return n;}
+
+Node* del(Node* n, int k) {
     if (!n) return n;
-    if (k < n->data) n->left = deleteNode(n->left, k);
-    else if (k > n->data) n->right = deleteNode(n->right, k);
+
+    if (k < n->data) n->l = del(n->l, k);
+    else if (k > n->data) n->r = del(n->r, k);
     else {
-        if (!n->left || !n->right) {
-            Node* temp = n->left ? n->left : n->right;
-            if (!temp) { free(n); return NULL; }
-            *n = *temp; free(temp);
+        if (n->l == NULL || n->r == NULL) {
+            Node* temp = n->l ? n->l : n->r;
+            if (!temp) {
+                free(n);
+                return NULL;
+            }
+            *n = *temp;   // copy temp to n
+            free(temp);
         } else {
-            // skip 2‑child: just print a note
-            printf("Delete 2‑child not supported.\n");
-            return n;
+            // 2‑child case
+            Node* temp = min(n->r);   // ino successor
+            n->data = temp->data;
+            n->r = del(n->r, temp->data); // delete the successor
         }
     }
 
     if (!n) return n;
-    n->height = 1 + max(height(n->left), height(n->right));
-    int b = getBalance(n);
+    n->ht = 1 + max(ht(n->l), ht(n->r));
+    int b = gBal(n);
 
-    if (b > 1 && getBalance(n->left) >= 0)  return rightRotate(n);
-    if (b > 1 && getBalance(n->left) < 0)   { n->left = leftRotate(n->left); return rightRotate(n); }
-    if (b < -1 && getBalance(n->right) <= 0) return leftRotate(n);
-    if (b < -1 && getBalance(n->right) > 0)  { n->right = rightRotate(n->right); return leftRotate(n); }
+    if (b > 1 && gBal(n->l) >= 0)   return rRo(n);
+    if (b > 1 && gBal(n->l) < 0)    { n->l = lRo(n->l); return rRo(n); }
+    if (b < -1 && gBal(n->r) <= 0)  return lRo(n);
+    if (b < -1 && gBal(n->r) > 0)   { n->r = rRo(n->r); return lRo(n); }
     return n;
 }
 
-void inorder(Node* n) {
+void ino(Node* n) {
     if (n) {
-        inorder(n->left);
+        ino(n->l);
         printf("%d ", n->data);
-        inorder(n->right);
-    }
+        ino(n->r);}
 }
 
 int main() {
     Node* root = NULL;
     int vals[] = {50, 30, 70, 20, 40, 60, 80}, n = 7;
 
-    for (int i = 0; i < n; i++)
-        root = insert(root, vals[i]);
-
+    for (int i = 0; i < n; i++){
+        root = in(root, vals[i]);}
+    
     printf("Inorder after insert: ");
-    inorder(root); puts("");
-
-    root = deleteNode(root, 70);
-
+    ino(root); puts("");
+    root = del(root, 70);   // 70 has two children (60 and 80)
     printf("Inorder after delete: ");
-    inorder(root); puts("");
-
+    ino(root); puts("");
     return 0;
 }

@@ -4,13 +4,11 @@
 #include <stdio.h>
 #include <math.h>
 
-#define MAX 10
+#define M 10
 
 int main() {
-    int n, i, j, iter;
-    float u[MAX][MAX], u_new;
-    float tol = 1e-4, maxErr;
-    int maxIter = 1000;
+    int n, i, j, iter, maxIter = 1000;
+    float u[M][M], u_new, tol = 1e-4, maxErr;
 
     printf("Solves: d2u/dx2 + d2u/dy2 = 0\n\n");
     printf("Enter grid size (n x n interior points, e.g. 4): ");

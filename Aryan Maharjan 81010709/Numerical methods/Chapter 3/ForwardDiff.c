@@ -4,12 +4,12 @@
 #define MAX 20
 
 int main() {
-    float x[MAX], y[MAX];
+    float x[MAX], y[MAX],h, xp;
     int n, i;
-    float h, xp;
+
 
     printf("===== Derivative by Forward Difference Formula =====\n");
-    printf("f'(x) = [-3f(x) + 4f(x+h) - f(x+2h)] / (2h)  [O(h^2)]\n\n");
+    printf("f'(x) = [-3f(x) + 4f(x+h) - f(x+2h)] / (2h)\n");
 
     printf("Enter number of data points: ");
     scanf("%d", &n);

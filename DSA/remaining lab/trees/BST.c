@@ -9,40 +9,40 @@ typedef struct Node {
     struct Node *left, *right;
 } Node;
 
-Node* createNode(int val) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = val;
-    newNode->left = newNode->right = NULL;
-    return newNode;
+Node* create(int val) {
+    Node* new = (Node*)malloc(sizeof(Node));
+    new->data = val;
+    new->left = new->right = NULL;
+    return new;
 }
 
-Node* insert(Node* root, int val) {
-    if (root == NULL) return createNode(val);
-    if (val < root->data) root->left = insert(root->left, val);
-    else if (val > root->data) root->right = insert(root->right, val);
+Node* in(Node* root, int val) {
+    if (root == NULL) return create(val);
+    if (val < root->data) root->left = in(root->left, val);
+    else if (val > root->data) root->right = in(root->right, val);
     return root;
 }
 
-Node* search(Node* root, int key) {
+Node* ser(Node* root, int key) {
     if (root == NULL || root->data == key) return root;
-    if (key < root->data) return search(root->left, key);
-    return search(root->right, key);
+    if (key < root->data) return ser(root->left, key);
+    return ser(root->right, key);
 }
 
-Node* minValueNode(Node* root) {
-    Node* current = root;
-    while (current && current->left != NULL)
-        current = current->left;
-    return current;
+Node* min(Node* root) {
+    Node* curr = root;
+    while (curr && curr->left != NULL)
+        curr = curr->left;
+    return curr;
 }
 
-Node* deleteNode(Node* root, int key) {
+Node* del(Node* root, int key) {
     if (root == NULL) return root;
 
     if (key < root->data)
-        root->left = deleteNode(root->left, key);
+        root->left = del(root->left, key);
     else if (key > root->data)
-        root->right = deleteNode(root->right, key);
+        root->right = del(root->right, key);
     else {
         if (root->left == NULL) {
             Node* temp = root->right;
@@ -54,9 +54,9 @@ Node* deleteNode(Node* root, int key) {
             return temp;
         }
 
-        Node* temp = minValueNode(root->right);
+        Node* temp = min(root->right);
         root->data = temp->data;
-        root->right = deleteNode(root->right, temp->data);
+        root->right = del(root->right, temp->data);
     }
     return root;
 }
@@ -87,11 +87,10 @@ void postorder(Node* root) {
 
 int main() {
     Node* root = NULL;
-    int values[] = {50, 30, 70, 20, 40, 60, 80};
-    int n = sizeof(values) / sizeof(values[0]);
+    int values[] = {50, 30, 70, 20, 40, 60, 80},n = 7;
 
     for (int i = 0; i < n; i++)
-        root = insert(root, values[i]);
+        root = in(root, values[i]);
 
     printf("Inorder before delete: ");
     inorder(root);
@@ -106,14 +105,14 @@ int main() {
     printf("\n");
 
     int key = 70;
-    root = deleteNode(root, key);
+    root = del(root, key);
 
     printf("Inorder after delete: ");
     inorder(root);
     printf("\n");
 
     printf("Searching %d: ", 60);
-    if (search(root, 60))
+    if (ser(root, 60))
         printf("Found\n");
     else
         printf("Not Found\n");
